@@ -2,3 +2,4 @@
 .env
 limiter-env
 __pycache__
+Dockerfile

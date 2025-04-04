@@ -2,7 +2,8 @@ import discord
 import os
 import asyncio
 from dotenv import load_dotenv
-from event_handlers import on_ready,on_voice_state
+from event_handlers.on_ready import handle_ready
+from event_handlers.on_voice_state import handle_voice_update
 from tasks.remove_roles import remove_limited_role
 
 intents = discord.Intents.default()
@@ -19,7 +20,12 @@ TOKEN = os.getenv("BOT_TOKEN")
 
 client = MyBot(intents=intents)
 
-client.event(on_ready.handle_ready)
-client.event(on_voice_state.handle_voice_update)
+@client.event
+async def on_ready():
+    await handle_ready(client)
+
+@client.event
+async def on_voice_state_update(member, before, after):
+    await handle_voice_update(client, member, before, after)
 
 client.run(TOKEN)

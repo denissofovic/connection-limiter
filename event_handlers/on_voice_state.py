@@ -1,9 +1,9 @@
 import discord
 from helpers.supabase_helper import increment_connects,fetch_connects,create_row
-
+from helpers.messages import create_pretty_message
 
 MAX_NUM_OF_CONNECTS = 3
-async def handle_voice_update(member, before, after):
+async def handle_voice_update(client, member, before, after):
     if before.channel == after.channel:
         return  
 
@@ -19,7 +19,8 @@ async def handle_voice_update(member, before, after):
         print(f"{member.name} disconnected.")
 
         if num_of_connects >= MAX_NUM_OF_CONNECTS:
-            await member.send("You reached your limit, try again tomorrow.")
+            message = create_pretty_message("Notification", "You've reached your limit for today, please try connecting again tomorrow", discord.Color.red())
+            await member.send(embed = message)
 
             limited_role = discord.utils.get(member.guild.roles, name="LIMITED")
             if limited_role:
@@ -27,4 +28,8 @@ async def handle_voice_update(member, before, after):
                 print(f"Added 'LIMITED' role to {member.name}")
 
         else:
-            await member.send(f"You connected {num_of_connects} times today.")
+            if num_of_connects == 1:
+                message = create_pretty_message("Notification", "You've connected 1 time today")
+            else:
+                message = create_pretty_message("Notification", f"You've connected {num_of_connects} times today")
+            await member.send(embed = message)
