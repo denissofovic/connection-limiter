@@ -4,6 +4,7 @@ import asyncio
 from dotenv import load_dotenv
 from event_handlers.on_ready import handle_ready
 from event_handlers.on_voice_state import handle_voice_update
+from event_handlers.on_join import handle_join
 from tasks.remove_roles import remove_limited_role
 
 intents = discord.Intents.default()
@@ -27,5 +28,9 @@ async def on_ready():
 @client.event
 async def on_voice_state_update(member, before, after):
     await handle_voice_update(client, member, before, after)
+
+@client.event
+async def on_guild_join(guild):
+    await handle_join(client,guild)
 
 client.run(TOKEN)
