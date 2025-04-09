@@ -2,7 +2,7 @@ import discord
 from helpers.supabase_helper import increment_connects,fetch_connects,create_row
 from helpers.messages import create_pretty_message
 
-MAX_NUM_OF_CONNECTS = 3
+MAX_NUM_OF_CONNECTS = 6
 async def handle_voice_update(client, member, before, after):
     if before.channel == after.channel:
         return  

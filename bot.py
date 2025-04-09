@@ -11,6 +11,7 @@ intents = discord.Intents.default()
 intents.message_content = True
 intents.voice_states = True
 intents.guilds = True
+intents.members = True
 
 class MyBot(discord.Client):
     async def setup_hook(self):
