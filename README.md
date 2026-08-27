@@ -1,6 +1,6 @@
 # Connection Limiter
 
-Zabavni Discord bot koji ograničava broj korisnika koji se istovremeno mogu povezati na glasovne (voice) kanale na serveru.
+Discord bot koji ograničava broj korisnika koji se istovremeno mogu povezati na glasovne (voice) kanale na serveru.
 
 ## O projektu
 
